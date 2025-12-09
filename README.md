@@ -1,16 +1,68 @@
-# React + Vite
+# Git Game Dashboard
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+A Git API Dashboard that lets you track your stats and explore characters based on your level. Challenge other characters and see how you rank. Have fun and level up!
 
-Currently, two official plugins are available:
+## Features
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+- 📊 **Dashboard Overview**: Track your level, XP, achievements, and challenges won
+- 📈 **Stats**: View detailed Git activity statistics and recent activity
+- 🎮 **Characters**: Explore and challenge other characters (coming soon)
+- 🏆 **Leaderboard**: See how you rank against other players (coming soon)
 
-## React Compiler
+## Tech Stack
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+- **React 19** - UI library
+- **Vite** - Build tool and dev server
+- **React Router DOM** - Client-side routing
+- **CSS** - Custom styling with modern design
 
-## Expanding the ESLint configuration
+## Getting Started
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+### Prerequisites
+
+- Node.js (v18 or higher recommended)
+- npm
+
+### Installation
+
+```bash
+# Install dependencies
+npm install
+
+# Start development server
+npm run dev
+
+# Build for production
+npm run build
+
+# Preview production build
+npm run preview
+
+# Lint code
+npm run lint
+```
+
+### Development
+
+The app will be available at `http://localhost:5173/` when running the dev server.
+
+## Project Structure
+
+```
+src/
+├── components/       # Reusable components (Header, Sidebar)
+├── layouts/         # Layout components (DashboardLayout)
+├── pages/           # Page components (Dashboard, Stats, Characters, Leaderboard)
+├── assets/          # Static assets
+├── App.jsx          # Main app component with routing
+├── main.jsx         # Entry point
+└── index.css        # Global styles
+```
+
+## Contributing
+
+This is a learning project for exploring React, Vite, and dashboard design patterns.
+
+## License
+
+MIT
