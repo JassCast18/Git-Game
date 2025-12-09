@@ -1,0 +1,65 @@
+.sample-page {
+  max-width: 1200px;
+}
+
+.content-section {
+  background: white;
+  padding: 2rem;
+  border-radius: 8px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+  margin-bottom: 1.5rem;
+}
+
+.content-section h3 {
+  color: #2d3748;
+  margin: 0 0 1rem 0;
+  font-size: 1.25rem;
+}
+
+.content-section p {
+  color: #4a5568;
+  line-height: 1.6;
+  margin: 0 0 1rem 0;
+}
+
+.placeholder-chart {
+  background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+  height: 200px;
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.5rem;
+  color: #4a5568;
+}
+
+.activity-list {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.activity-item {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  padding: 1rem;
+  background: #f7fafc;
+  border-radius: 6px;
+}
+
+.activity-icon {
+  font-size: 1.5rem;
+}
+
+.activity-title {
+  margin: 0 0 0.25rem 0;
+  color: #2d3748;
+  font-weight: 500;
+}
+
+.activity-time {
+  margin: 0;
+  color: #718096;
+  font-size: 0.85rem;
+}
