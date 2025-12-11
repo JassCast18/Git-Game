@@ -1,4 +1,4 @@
-import "tailwindcss";
+
 import Buscador from "./pages/Buscador";
 
 function App() {
