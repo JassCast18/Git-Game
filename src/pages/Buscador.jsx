@@ -44,7 +44,7 @@ function Buscador() {
 
   return (<>
     {error && (
-      <div className='fixed top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2  z-9999 bg-blue-500 p-7 rounded-lg shadow-lg'>
+      <div className='fixed top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2  z-9999 bg-blue-500 px-7 pt-7 pb-2 rounded-lg shadow-lg'>
         <div className="absolute inset-0 bottom-1 left-1 bg-sky-950 opacity-50 rounded-lg w-5 h-5 my-2"></div>
         <div className="absolute inset-0 bottom-1 left-7 bg-sky-950 opacity-50 rounded-lg w-5 h-5 my-2"></div>
         <div className="absolute inset-0 bottom-1 left-13 bg-sky-950 opacity-50 rounded-lg w-5 h-5 my-2"></div>
