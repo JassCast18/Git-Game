@@ -1,15 +1,25 @@
-class Github{
+export async function fetchGitHubUser(username) {
+  if (!username) {
+    return { ok: false, error: "Debes ingresar un usuario" };
+  }
 
-    constructor(client_id, client_secret){
-        this.client_id = client_id;
-        this.client_secret = client_secret;
+  try {
+    const res = await fetch(`https://api.github.com/users/${username}`);
+
+    if (res.status === 404) {
+      return { ok: false, error: "Usuario no encontrado" };
     }
 
-    async fetchUser(user){
-        const userDataRequest =await fetch(`https://api.github.com/users/${user}?client_id=${this.client_id}&client_secret=${this.client_secret}`)
-        const userData = await userDataRequest.json();
-        return userData;
+    if (!res.ok) {
+      return { ok: false, error: "Error al buscar el usuario" };
     }
+
+    const data = await res.json();
+    return { ok: true, data };
+  } catch (err) {
+    return {
+      ok: false,
+      error: "Error de conexión con GitHub"
+    };
+  }
 }
-
-module.exports = Github;
