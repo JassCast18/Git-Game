@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react';
 import { FaGithub } from "react-icons/fa";
 import { ImSearch } from "react-icons/im";
 import { fetchGitHubUser } from '../config/github';
+import { CgCloseR } from "react-icons/cg";
 
 
 function Buscador() {
@@ -27,7 +28,11 @@ function Buscador() {
   const [result, setResult] = useState(null);
   const [error, setError] = useState(null);
   async function handleSearch() {
-    if (!username.trim()) return;
+    if (!username.trim()) {
+      setError("El usuario no puede estar vacio");
+      setResult(null);
+      return;
+    }
 
     const res = await fetchGitHubUser(username);
 
@@ -44,10 +49,11 @@ function Buscador() {
 
   return (<>
     {error && (
-      <div className='fixed top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2  z-9999 bg-blue-500 px-7 pt-7 pb-2 rounded-lg shadow-lg'>
+      <div className='fixed top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2  z-9999 bg-blue-500 px-7 pt-7 pb-2 rounded-lg shadow-lg '>
         <div className="absolute inset-0 bottom-1 left-1 bg-sky-950 opacity-50 rounded-lg w-5 h-5 my-2"></div>
         <div className="absolute inset-0 bottom-1 left-7 bg-sky-950 opacity-50 rounded-lg w-5 h-5 my-2"></div>
         <div className="absolute inset-0 bottom-1 left-13 bg-sky-950 opacity-50 rounded-lg w-5 h-5 my-2"></div>
+        <button className="absolute top-4 right-4 text-4xl text-red-500 hover:text-red-600 hover:text-5xl" onClick={() => setError(null)}><CgCloseR/></button>
         <div
           className=" bg-gray-50 text-black p-7 rounded-lg shadow-lg my-1"
         >
@@ -55,7 +61,7 @@ function Buscador() {
 
           <button
             onClick={() => setError(null)}
-            className="ml-4 bg-sky-50 text-black px-2 py-1 rounded-md hover:bg-sky-200 mt-2 text-xs"
+            className="ml-4 bg-blue-500 text-black px-5 py-1 rounded-md hover:bg-sky-200 mt-2 text-xs "
           >
             Cerrar
           </button>
@@ -80,16 +86,9 @@ function Buscador() {
         {/* 🔳 Caja gris con icono + input */}
         <div className="flex items-center gap-3 bg-black/10 backdrop-blur-md p-4 rounded-l-2xl shadow-lg flex-1">
           <FaGithub className="text-4xl text-white" />
-
-          <input
-            type="text"
-            placeholder="Buscar..."
-            className="flex-1 p-3 rounded-xl bg-white/20 text-white placeholder-gray-300 focus:outline-none"
-            value={username}
-            onChange={(e) => setUsername(e.target.value)}
-          />
+          <input type="text" placeholder="Buscar..." className="flex-1 p-3 rounded-xl bg-white/20 text-white placeholder-gray-300 focus:outline-none" value={username} onChange={(e) => setUsername(e.target.value)} />
         </div>
-
+      
         {/* 🔘 Botón afuera pero a la par */}
         <button onClick={handleSearch} className="px-4 py-1 rounded-r-xl bg-white/20 text-white hover:bg-white/30 backdrop-blur-md min-h-20">
           <ImSearch className="text-4xl text-white" />
@@ -101,5 +100,4 @@ function Buscador() {
 
   );
 }
-
 export default Buscador;
