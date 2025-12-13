@@ -1,11 +1,12 @@
 
 import Buscador from "./pages/Buscador";
+import Inicio from "./pages/Inicio";
 
 function App() {
 
   return (
     <>
-     <Buscador/>
+     <Inicio/>
     </>
   )
 }
