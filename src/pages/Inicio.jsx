@@ -17,7 +17,7 @@ function Inicio() {
       <div className="relative z-10 space-y-60 py-40">
 
         {/* ESCENA 1 */}
-        <div className="relative h-[40px] w-full ">
+        <div className="relative h-200 lg:h-0 w-full">
 
           <img
             src="/inicio/Bloque.svg"
@@ -26,11 +26,13 @@ function Inicio() {
               absolute
               top-0
               left-1/2
+              lg:left-65 lg:top-30
               -translate-x-1/2
               w-40 h-40
             "
           />
 
+          {/* PUENTE (mobile only) */}
           <img
             src="/inicio/puente.svg"
             alt="Puente"
@@ -41,9 +43,11 @@ function Inicio() {
               right-1/2
               w-40 h-40
               z-10
+              lg:hidden
             "
           />
 
+          {/* PUENTE (mobile only) */}
           <img
             src="/inicio/puente.svg"
             alt="Puente"
@@ -55,63 +59,122 @@ function Inicio() {
               -translate-x-1/2
               w-40 h-40
               z-10
+              lg:hidden
             "
           />
 
-        </div>
-         <div className="relative h-[400px] w-full ">
+       
+
+        
 
           <img
             src="/inicio/Bloque.svg"
             alt="Bloque"
             className="
               absolute
-              top-0
+              top-60
+              lg:top-0 lg:left-127
               left-1/2
-              -translate-x-1/2
               w-40 h-40
             "
           />
+
           <img
             src="/inicio/Bloque.svg"
             alt="Bloque"
             className="
               absolute
-              top-0
-               left-1/2
-           
-              w-40 h-40
-            "
-          />
-
-
-          <img
-            src="/inicio/puente.svg"
-            alt="Puente"
-            className="
-              absolute
-              bottom-48
-              left-1/3
+              top-72
+              lg:top-10
+              lg:left-130
+              left-1/2
               -translate-x-1/2
               w-40 h-40
-              z-10
             "
           />
 
+          {/* PUENTE (mobile only) */}
+          <img
+            src="/inicio/Puente2.svg"
+            alt="Puente"
+            className="
+              absolute
+              bottom-80
+              left-1/2
+              w-40 h-40
+              z-10
+              lg:hidden
+            "
+          />
+
+          {/* PUENTE (mobile only) */}
           <img
             src="/inicio/puente.svg"
             alt="Puente"
             className="
               absolute
-              bottom-25
+              bottom-57
               left-1/2
               -translate-x-1/2
               w-40 h-40
               z-10
+              lg:hidden
             "
           />
 
-        </div>
+          <img
+            src="/inicio/Bloque.svg"
+            alt="Bloque"
+            className="
+              absolute
+              bottom-30
+              left-1/2
+              lg:top-10 lg:left-145
+              w-40 h-40
+            "
+          />
+
+          <img
+            src="/inicio/Bloque.svg"
+            alt="Bloque"
+            className="
+            absolute
+              lg:right-70
+              lg:top-0
+              hidden
+              lg:block
+              
+              w-40 h-40
+            "
+          />
+          <img
+            src="/inicio/PuenteLg.svg"
+            alt="Puente"
+            className="
+              hidden
+              lg:block
+              absolute
+              lg:top-18 lg:left-90
+              w-40 h-40
+              z-10
+              
+            "
+          />
+          <img
+            src="/inicio/PuenteLg.svg"
+            alt="Puente"
+            className="
+              hidden
+              lg:block
+              absolute
+              lg:top-34 lg:left-64
+              w-40 h-40
+              z-10
+              
+            "
+          />
+
+         </div>
 
       </div>
 
