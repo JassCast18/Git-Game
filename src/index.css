@@ -13,3 +13,12 @@ h1,h2,h3,h4,h5,h6{
 p, span, button, input {
   font-family: 'Pixelify Sans', sans-serif;
 }
+
+@keyframes nube-move {
+  from {
+    transform: translateX(-300px);
+  }
+  to {
+    transform: translateX(calc(100vw + 300px));
+  }
+}
