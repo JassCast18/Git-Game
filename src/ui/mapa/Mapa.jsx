@@ -1,16 +1,15 @@
 import Bloque from "./Bloque"
 import Puente from "./Puente"
 import Arbol from "./Arbol"
-import LetreroButton from "./LetreroButton"
+
 
 const MAPA = [
   {
     bloques: [
-      { className: "top-0 left-1/2 -translate-x-1/2" },
+      { className: "top-0 left-1/2 -translate-x-1/2", showButton: true, buttonLabel: "Mi año en Git Hub" },
+      { className: "top-[240px] left-1/2",showButton: true, buttonLabel: "Mis Datos" },
       { className: "top-[280px] left-1/2 -translate-x-1/2" },
-      { className: "top-[240px] left-1/2" },
-      { className: "top-[280px] left-1/2 -translate-x-1/2" },
-      { className: "bottom-0 left-1/2" },
+      { className: "bottom-0 left-1/2", showButton: true, buttonLabel: "Haz un vs" },
     ],
     puentes: [
       { className: "w-40 h-40 top-[40px] right-1/2" },
@@ -19,7 +18,6 @@ const MAPA = [
       { className: "w-40 h-40 bottom-[120px] left-1/2 -translate-x-1/2" },
     ],
     arboles: [
-      { className: "top-0 left-1/2", size: 14 },
       { className: "top-[280px] right-1/2", size: 14 },
       { className: "top-[280px] left-1/2 -translate-x-1/2", size: 10 },
       { className: "top-[280px] left-1/2", size: 12 },

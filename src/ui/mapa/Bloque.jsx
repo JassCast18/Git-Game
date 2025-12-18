@@ -3,9 +3,13 @@ import BotonArcade from "../BotonArcade"
 export default function Bloque({
   className = "",
   size = 40,
+
+  // 🔽 NUEVAS PROPS
+  showButton = false,
+  buttonLabel = "ENTER",
 }) {
   return (
-    <div className={`absolute ${className}`}>
+    <div className={`absolute ${className} `}>
       
       {/* Bloque */}
       <img
@@ -15,12 +19,15 @@ export default function Bloque({
           width: `${size * 4}px`,
           height: `${size * 4}px`,
         }}
+        className="relative "
       />
 
-      {/* Botón encima */}
-      <div className="absolute -top-6 left-1/2 -translate-x-1/2 z-50">
-        <BotonArcade label="ENTER" />
-      </div>
+      {/* Botón encima (solo si aplica) */}
+      {showButton && (
+        <div className="absolute top-2 right-4 z-50">
+          <BotonArcade label={buttonLabel} />
+        </div>
+      )}
 
     </div>
   )
