@@ -30,7 +30,7 @@ export default function Inicio() {
 )}
 
 
-<div className="absolute right-0 top-10"> 
+<div className="absolute right-8 top-10"> 
   <ButtonBack />
 </div>
       
