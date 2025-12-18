@@ -1,4 +1,4 @@
-import BotonArcade from "../BotonArcade"
+import BotonArcade from "../../ui/BotonArcade"
 
 export default function Bloque({
   className = "",

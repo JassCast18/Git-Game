@@ -1,4 +1,6 @@
 import { useEffect, useState } from 'react';
+import { useGame } from '../Context/GameContext';
+import { useNavigate } from 'react-router-dom';
 import { FaGithub } from "react-icons/fa";
 import { ImSearch } from "react-icons/im";
 import { fetchGitHubUser } from '../config/github';
@@ -22,6 +24,9 @@ function Buscador() {
     { id: 11, styles: "bottom-29 left-13 w-16 rotate-30" },
     { id: 12, styles: "bottom-4 left-40 w-10 rotate-15" },
   ]
+  const { setPlayer } = useGame();
+  const navigate = useNavigate();
+
 
   //estado para reconocer el usuario del input
   const [username, setUsername] = useState("");
@@ -30,7 +35,7 @@ function Buscador() {
   async function handleSearch() {
     if (!username.trim()) {
       setError("El usuario no puede estar vacio");
-      setResult(null);
+
       return;
     }
 
@@ -38,12 +43,18 @@ function Buscador() {
 
     if (!res.ok) {
       setError(res.error);
-      setResult(null);
+
       return;
     }
-    setResult(res.data);
-    setError(null);
-    console.log(res.data);
+   
+    setPlayer({
+      username: res.data.login,
+      avatar: res.data.avatar_url,
+      data: res.data,
+    });
+
+    // 🎮 ENTRAMOS AL JUEGO
+    navigate("/inicio");
   }
 
 
@@ -53,7 +64,7 @@ function Buscador() {
         <div className="absolute inset-0 bottom-1 left-1 bg-sky-950 opacity-50 rounded-lg w-5 h-5 my-2"></div>
         <div className="absolute inset-0 bottom-1 left-7 bg-sky-950 opacity-50 rounded-lg w-5 h-5 my-2"></div>
         <div className="absolute inset-0 bottom-1 left-13 bg-sky-950 opacity-50 rounded-lg w-5 h-5 my-2"></div>
-        <button className="absolute top-4 right-4 text-4xl text-red-500 hover:text-red-600 hover:text-5xl" onClick={() => setError(null)}><CgCloseR/></button>
+        <button className="absolute top-4 right-4 text-4xl text-red-500 hover:text-red-600 hover:text-5xl" onClick={() => setError(null)}><CgCloseR /></button>
         <div
           className=" bg-gray-50 text-black p-7 rounded-lg shadow-lg my-1"
         >
@@ -88,7 +99,7 @@ function Buscador() {
           <FaGithub className="text-4xl text-white" />
           <input type="text" placeholder="Buscar..." className="flex-1 p-3 rounded-xl bg-white/20 text-white placeholder-gray-300 focus:outline-none" value={username} onChange={(e) => setUsername(e.target.value)} />
         </div>
-      
+
         {/* 🔘 Botón afuera pero a la par */}
         <button onClick={handleSearch} className="px-4 py-1 rounded-r-xl bg-white/20 text-white hover:bg-white/30 backdrop-blur-md min-h-20">
           <ImSearch className="text-4xl text-white" />
