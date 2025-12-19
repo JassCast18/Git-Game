@@ -4,9 +4,11 @@ const GameContext = createContext();
 
 export function GameProvider({ children }) {
   const [player, setPlayer] = useState(null);
-
+  const logout = () => {
+  setPlayer(null);
+}; 
   return (
-    <GameContext.Provider value={{ player, setPlayer }}>
+    <GameContext.Provider value={{ player, setPlayer, logout }}>
       {children}
     </GameContext.Provider>
   );
@@ -15,3 +17,6 @@ export function GameProvider({ children }) {
 export function useGame() {
   return useContext(GameContext);
 }
+
+
+

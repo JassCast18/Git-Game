@@ -97,7 +97,12 @@ function Buscador() {
         {/* 🔳 Caja gris con icono + input */}
         <div className="flex items-center gap-3 bg-black/10 backdrop-blur-md p-4 rounded-l-2xl shadow-lg flex-1">
           <FaGithub className="text-4xl text-white" />
-          <input type="text" placeholder="Buscar..." className="flex-1 p-3 rounded-xl bg-white/20 text-white placeholder-gray-300 focus:outline-none" value={username} onChange={(e) => setUsername(e.target.value)} />
+          <input type="text" placeholder="Buscar..." className="flex-1 p-3 rounded-xl bg-white/20 text-white placeholder-gray-300 focus:outline-none" value={username} onChange={(e) => setUsername(e.target.value)}
+          onKeyDown={(e) => {
+    if (e.key === "Enter") {
+      handleSearch();
+    }
+  }} />
         </div>
 
         {/* 🔘 Botón afuera pero a la par */}

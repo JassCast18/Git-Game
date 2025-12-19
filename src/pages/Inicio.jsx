@@ -21,29 +21,29 @@ export default function Inicio() {
   return (
     <div className="relative min-h-screen overflow-hidden">
       {player && (
-  <div className="absolute top-10 left-0  z-20 bg-lime-700 pl-11 py-4 pr-4 rounded-md shadow-xl ">
-    <h2 className="text-white text-xs sm:text-xl font-bold tracking-wide">
-      <FaGithubAlt className="inline-block mr-2 text-2xl -translate-y-1 w-5 h-5 sm:w-10 sm:h-10" />
-      {player.username}
-    </h2>
-  </div>
-)}
+        <div className="absolute top-10 left-0  z-20 bg-lime-700 pl-11 py-4 pr-4 rounded-md shadow-xl pointer-events-none">
+          <h2 className="text-white text-xs sm:text-xl font-bold tracking-wide">
+            <FaGithubAlt className="inline-block mr-2 text-2xl -translate-y-1 w-5 h-5 sm:w-10 sm:h-10" />
+            {player.username}
+          </h2>
+        </div>
+      )}
 
 
-<div className="absolute right-8 top-10"> 
-  <ButtonBack />
-</div>
-      
+      <div className="absolute right-8 top-10">
+        <ButtonBack />
+      </div>
+
       {/* Fondo */}
-      <div className="fixed inset-0 -z-30 bg-linear-to-b from-sky-950 to-sky-300" />
+      <div className="fixed inset-0 -z-30 bg-linear-to-b from-sky-950 to-sky-300 pointer-events-none" />
 
       <Nubes />
 
       {/* CONTENEDOR DEL JUEGO */}
       <div
-  className="
+        className="
     relative z-10 flex justify-center pt-32
-    min-h-[100vh]
+    min-h-[100vh] pointer-events-none
     sm:min-h-[110vh]
     lg:min-h-[130vh]
     sm:pb-[40vh]
@@ -51,10 +51,11 @@ export default function Inicio() {
     2xl:min-h-[170vh]
     overflow-visible
   "
->
+      >
 
         <div
           className="
+          pointer-events-auto
             origin-top
             scale-[0.85]
             sm:scale-[0.95]
