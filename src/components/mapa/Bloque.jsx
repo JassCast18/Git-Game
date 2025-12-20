@@ -3,10 +3,9 @@ import BotonArcade from "../../ui/BotonArcade"
 export default function Bloque({
   className = "",
   size = 40,
-
-  // 🔽 NUEVAS PROPS
   showButton = false,
   buttonLabel = "ENTER",
+  onClick, // 1. Recibimos la función aquí
 }) {
   return (
     <div className={`absolute ${className} `}>
@@ -25,7 +24,11 @@ export default function Bloque({
       {/* Botón encima (solo si aplica) */}
       {showButton && (
         <div className="absolute top-2 right-4 z-50">
-          <BotonArcade label={buttonLabel} />
+          {/* 2. Se la pasamos al componente del botón */}
+          <BotonArcade 
+            label={buttonLabel} 
+            onClick={onClick} 
+          />
         </div>
       )}
 
