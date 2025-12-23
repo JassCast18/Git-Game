@@ -18,12 +18,7 @@ export default function BotonArcade({
         font-bold uppercase tracking-wide
         text-white text-sm text-center
         whitespace-pre-line
-        transform
--skew-x-[-12deg]
--skew-y-[5deg]
--translate-x-1
--translate-y-10
-
+       
 
         bg-green-900
         rounded-md
