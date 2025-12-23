@@ -47,9 +47,10 @@ function Buscador() {
       return;
     }
    
+    // Normalizamos el shape del player con la nueva respuesta que contiene `user` anidado
     setPlayer({
-      username: res.data.login,
-      avatar: res.data.avatar_url,
+      username: res.data.user.login,
+      avatar: res.data.user.avatar_url,
       data: res.data,
     });
 
