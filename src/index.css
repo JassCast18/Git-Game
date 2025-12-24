@@ -10,7 +10,7 @@ h1,h2,h3,h4,h5,h6{
   
 
 
-p, span, button, input {
+p, span, button, input, label, li, a, svg text{
   font-family: 'Pixelify Sans', sans-serif;
 }
 

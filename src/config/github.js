@@ -6,7 +6,7 @@ export async function fetchGitHubUser(username) {
   try {
     const [userRes, reposRes] = await Promise.all([
       fetch(`https://api.github.com/users/${username}`),
-      fetch(`https://api.github.com/users/${username}/repos?per_page=100`), // traemos hasta 100 repos
+      fetch(`https://api.github.com/users/${username}/repos?per_page=100`),
     ]);
 
     if (userRes.status === 404) {
@@ -20,26 +20,49 @@ export async function fetchGitHubUser(username) {
     const userData = await userRes.json();
     const reposData = await reposRes.json();
 
-    // Procesar repos para sacar info que quieres:
-    // Ejemplo: repositorio con más commits (usaremos el que tenga más 'stargazers_count' como proxy)
+    // Repo con más estrellas (histórico)
     let repoMostStars = null;
-    if (Array.isArray(reposData) && reposData.length > 0) {
-      repoMostStars = reposData.reduce((max, repo) => (repo.stargazers_count > (max?.stargazers_count || 0) ? repo : max), null);
+    if (reposData.length > 0) {
+      repoMostStars = reposData.reduce(
+        (max, repo) =>
+          repo.stargazers_count > (max?.stargazers_count || 0)
+            ? repo
+            : max,
+        null
+      );
     }
 
-    // Lenguajes dominantes: podemos contar el lenguaje principal de cada repo
+    // 🔥 REPOS ACTIVOS EN EL ÚLTIMO AÑO
+    const oneYearAgo = new Date();
+    oneYearAgo.setFullYear(oneYearAgo.getFullYear() - 1);
+
+    const activeRepos = reposData.filter(
+      repo => new Date(repo.updated_at) >= oneYearAgo
+    );
+
+    // Lenguajes dominantes (último año)
     const languageCount = {};
-    reposData.forEach(repo => {
+    activeRepos.forEach(repo => {
       if (repo.language) {
-        languageCount[repo.language] = (languageCount[repo.language] || 0) + 1;
+        languageCount[repo.language] =
+          (languageCount[repo.language] || 0) + 1;
       }
     });
 
-    // Ordenar lenguajes por cantidad de repositorios que usan ese lenguaje
-    const dominantLanguages = Object.entries(languageCount)
-      .sort((a, b) => b[1] - a[1])
-      .map(([lang]) => lang)
-      .slice(0, 3); // Los 3 lenguajes más usados
+    const totalRepos = Object.values(languageCount)
+      .reduce((sum, count) => sum + count, 0);
+
+    let dominantLanguages = [];
+
+    if (totalRepos > 0) {
+      dominantLanguages = Object.entries(languageCount)
+        .map(([language, count]) => ({
+          name: language,
+          value: Math.round((count / totalRepos) * 100),
+        }))
+        .sort((a, b) => b.value - a.value)
+        .slice(0, 5);
+    }
 
     return {
       ok: true,
