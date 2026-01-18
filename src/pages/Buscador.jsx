@@ -3,7 +3,7 @@ import { useGame } from '../Context/GameContext';
 import { useNavigate } from 'react-router-dom';
 import { FaGithub } from "react-icons/fa";
 import { ImSearch } from "react-icons/im";
-import { fetchGitHubUser } from '../config/github';
+import { yearDataHandler } from '../../api/github';
 import { CgCloseR } from "react-icons/cg";
 
 
@@ -24,38 +24,42 @@ function Buscador() {
     { id: 11, styles: "bottom-29 left-13 w-16 rotate-30" },
     { id: 12, styles: "bottom-4 left-40 w-10 rotate-15" },
   ]
-  const { setPlayer } = useGame();
+  const { setPlayer, setLoading, setError } = useGame();
   const navigate = useNavigate();
-
 
   //estado para reconocer el usuario del input
   const [username, setUsername] = useState("");
   const [result, setResult] = useState(null);
-  const [error, setError] = useState(null);
+  const [error, setErrorLocal] = useState(null);
+
   async function handleSearch() {
     if (!username.trim()) {
-      setError("El usuario no puede estar vacio");
-
+      setErrorLocal("El usuario no puede estar vacio");
       return;
     }
 
-    const res = await fetchGitHubUser(username);
+    try {
+      setLoading(true);
+      setErrorLocal(null);
+      
+      // Obtener datos del usuario con GraphQL
+      const yearData = await yearDataHandler.fetchYearData(username);
 
-    if (!res.ok) {
-      setError(res.error);
+      // Establecer el jugador en el contexto
+      setPlayer({
+        username: yearData.user.login,
+        avatar: yearData.user.avatar_url || '',
+        data: yearData,
+      });
 
-      return;
+      setLoading(false);
+      // 🎮 ENTRAMOS AL JUEGO
+      navigate("/inicio");
+    } catch (err) {
+      setLoading(false);
+      setErrorLocal(err.message || "Error al buscar el usuario. Intenta de nuevo.");
+      setError(err.message || "Error al buscar el usuario");
     }
-   
-    // Normalizamos el shape del player con la nueva respuesta que contiene `user` anidado
-    setPlayer({
-      username: res.data.user.login,
-      avatar: res.data.user.avatar_url,
-      data: res.data,
-    });
-
-    // 🎮 ENTRAMOS AL JUEGO
-    navigate("/inicio");
   }
 
 
@@ -65,14 +69,14 @@ function Buscador() {
         <div className="absolute inset-0 bottom-1 left-1 bg-sky-950 opacity-50 rounded-lg w-5 h-5 my-2"></div>
         <div className="absolute inset-0 bottom-1 left-7 bg-sky-950 opacity-50 rounded-lg w-5 h-5 my-2"></div>
         <div className="absolute inset-0 bottom-1 left-13 bg-sky-950 opacity-50 rounded-lg w-5 h-5 my-2"></div>
-        <button className="absolute top-4 right-4 text-4xl text-red-500 hover:text-red-600 hover:text-5xl" onClick={() => setError(null)}><CgCloseR /></button>
+        <button className="absolute top-4 right-4 text-4xl text-red-500 hover:text-red-600 hover:text-5xl" onClick={() => setErrorLocal(null)}><CgCloseR /></button>
         <div
           className=" bg-gray-50 text-black p-7 rounded-lg shadow-lg my-1"
         >
           <p className='text-xl p-4'>{error}</p>
 
           <button
-            onClick={() => setError(null)}
+            onClick={() => setErrorLocal(null)}
             className="ml-4 bg-blue-500 text-black px-5 py-1 rounded-md hover:bg-sky-200 mt-2 text-xs "
           >
             Cerrar

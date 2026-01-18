@@ -12,10 +12,14 @@ const COLORS = [
 
 
 export default function ContenidoYear() {
-  const { player } = useGame();
+  const { player, loading } = useGame();
+
+  if (loading) {
+    return <p className="text-white text-center">Cargando información...</p>;
+  }
 
   if (!player || !player.data) {
-    return <p className="text-white">Cargando información...</p>;
+    return <p className="text-white text-center">Cargando información...</p>;
   }
 
   const { user, repoMostStars, dominantLanguages } = player.data;
