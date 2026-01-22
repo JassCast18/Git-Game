@@ -24,37 +24,37 @@ function generateNarratives(data) {
 
   // Narrativa 1: Tipo de programador
   const peakHourTime = peakHour < 12 ? `${peakHour}:00 AM` : peakHour === 12 ? "12:00 PM" : `${peakHour - 12}:00 PM`;
-  narratives.push(`Eres un programador ${chronotype}: tu hora pico son las ${peakHourTime}. El ${nightPercentage}% de tu código se escribió en horas no convencionales. 🦉`);
+  narratives.push(`Eres un programador ${chronotype}: tu hora pico son las ${peakHourTime}. El ${nightPercentage}% de tu código se escribió en horas no convencionales.`);
 
   // Narrativa 2: Racha de días
-  narratives.push(`Tu racha más larga: ${maxConsecutiveDays} días consecutivos haciendo commits. ¡Increíble dedicación! 🔥`);
+  narratives.push(`Tu racha más larga: ${maxConsecutiveDays} días consecutivos haciendo commits. Increíble dedicación.`);
 
   // Narrativa 3: Fines de semana
   const weekendPercentage = totalContributions > 0 ? Math.round((weekendCommits / totalContributions) * 100) : 0;
-  narratives.push(`Dedicaste el ${weekendPercentage}% de tu tiempo de programación a los fines de semana. ${weekendPercentage > 30 ? "¡Definitivamente amas lo que haces!" : "Buen balance trabajo-vida."} 💪`);
+  narratives.push(`Dedicaste el ${weekendPercentage}% de tu tiempo de programación a los fines de semana. ${weekendPercentage > 30 ? "Definitivamente amas lo que haces." : "Buen balance trabajo-vida."}`);
 
   // Narrativa 4: Lenguaje principal
   if (dominantLanguages.length > 0) {
-    narratives.push(`Tu lenguaje favorito este año fue ${dominantLanguages[0].name}. Lo dominaste en el ${dominantLanguages[0].value}% de tus proyectos. 💻`);
+    narratives.push(`Tu lenguaje favorito este año fue ${dominantLanguages[0].name}. Lo dominaste en el ${dominantLanguages[0].value}% de tus proyectos.`);
   }
 
   // Narrativa 5: Mes más productivo
   if (monthlyContributions.length > 0) {
-    narratives.push(`Tu mes más productivo fue ${monthlyContributions[0].name}, con ${monthlyContributions[0].commits} commits. ¿Fue un mes especial? 📈`);
+    narratives.push(`Tu mes más productivo fue ${monthlyContributions[0].name}, con ${monthlyContributions[0].commits} commits. Fue un mes especial.`);
   }
 
   // Narrativa 6: Repo favorita
   if (repoMostStars) {
-    narratives.push(`Tu proyecto "${repoMostStars.name}" fue un éxito total con ${repoMostStars.stargazers_count} ⭐. ¡La comunidad te ama! 🌟`);
+    narratives.push(`Tu proyecto "${repoMostStars.name}" fue un éxito total con ${repoMostStars.stargazers_count} estrellas. La comunidad te ama.`);
   }
 
   // Narrativa 7: Comparativa de días
   const viernes = weekComparison[1];
   const domingo = weekComparison[2];
   if (viernes.commits > domingo.commits) {
-    narratives.push(`Prefieres programar en viernes (${viernes.commits} commits) que en domingo (${domingo.commits}). ¿Escapando del trabajo? 😄`);
+    narratives.push(`Prefieres programar en viernes (${viernes.commits} commits) que en domingo (${domingo.commits}). Escapando del trabajo.`);
   } else {
-    narratives.push(`¡Sorpresa! Eres más productivo en domingo (${domingo.commits} commits) que en viernes (${viernes.commits}). 🤓`);
+    narratives.push(`Eres más productivo en domingo (${domingo.commits} commits) que en viernes (${viernes.commits}).`);
   }
 
   return narratives;
@@ -85,18 +85,6 @@ export default function ContenidoYear() {
         Este es el registro de actividad de <span className="font-bold text-lime-400">{user.login}</span> durante el último año.
       </p>
 
-      {/* 🎵 SPOTIFY WRAPPED SECTION */}
-      <div className="w-full max-w-6xl bg-gradient-to-r from-purple-900/30 to-pink-900/30 border border-purple-500/50 rounded-lg p-6 mb-4">
-        <h2 className="text-2xl font-bold text-center text-lime-400 mb-4">🎵 Tu Resumen del Año</h2>
-        <div className="space-y-3">
-          {narratives.map((narrative, idx) => (
-            <div key={idx} className="p-3 bg-black/20 rounded-lg border border-purple-400/30 hover:border-lime-400/50 transition">
-              <p className="text-sm text-gray-200">{narrative}</p>
-            </div>
-          ))}
-        </div>
-      </div>
-
       {/* STATS PRINCIPALES */}
       <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-6 w-full max-w-6xl">
         <div className="text-center border border-white/10 rounded-lg p-4 bg-black/20">
@@ -125,7 +113,7 @@ export default function ContenidoYear() {
         
         {/* HORA DEL DÍA - Mapa de calor */}
         <div className="border border-white/10 rounded-lg p-6 bg-black/20">
-          <h3 className="text-lg font-semibold mb-4 text-lime-400">⏰ Actividad por Hora del Día</h3>
+          <h3 className="text-lg font-semibold mb-4 text-lime-400">Actividad por Hora del Día</h3>
           <div className="w-full h-[300px]">
             <ResponsiveContainer width="100%" height="100%">
               <BarChart data={hourlyChartData}>
@@ -152,14 +140,14 @@ export default function ContenidoYear() {
           </div>
           <div className="mt-3 p-3 bg-blue-900/20 rounded border border-blue-400/30">
             <p className="text-sm text-blue-200">
-              {chronotype === "nocturno" ? "🦉 Ave nocturna:" : "🐓 Madrugador:"} El {nightPercentage}% de tu código se escribió fuera de horario laboral.
+              {chronotype === "nocturno" ? "Ave nocturna:" : "Madrugador:"} El {nightPercentage}% de tu código se escribió fuera de horario laboral.
             </p>
           </div>
         </div>
 
         {/* COMPARATIVA DÍAS DE LA SEMANA */}
         <div className="border border-white/10 rounded-lg p-6 bg-black/20">
-          <h3 className="text-lg font-semibold mb-4 text-lime-400">📅 Comparativa: Lunes vs Viernes vs Domingo</h3>
+          <h3 className="text-lg font-semibold mb-4 text-lime-400">Comparativa: Lunes vs Viernes vs Domingo</h3>
           <div className="w-full h-[300px]">
             <ResponsiveContainer width="100%" height="100%">
               <BarChart data={weekComparison}>
@@ -182,8 +170,8 @@ export default function ContenidoYear() {
         
         {/* Fines de semana */}
         <div className="border border-white/10 rounded-lg p-4 bg-black/20">
-          <h3 className="text-lg font-semibold mb-2 text-pink-400">🏖️ Fines de Semana</h3>
-          <p className="text-2xl font-bold text-pink-300">{weekendCommits}</p>
+          <h3 className="text-lg font-semibold mb-2 text-lime-400">Fines de Semana</h3>
+          <p className="text-2xl font-bold text-lime-300">{weekendCommits}</p>
           <p className="text-xs text-gray-400 mt-1">
             Commits en sábados y domingos ({Math.round((weekendCommits / totalContributions) * 100)}%)
           </p>
@@ -192,8 +180,8 @@ export default function ContenidoYear() {
         {/* Lenguaje dominante */}
         {dominantLanguages.length > 0 && (
           <div className="border border-white/10 rounded-lg p-4 bg-black/20">
-            <h3 className="text-lg font-semibold mb-2 text-amber-400">💻 Lenguaje Favorito</h3>
-            <p className="text-2xl font-bold text-amber-300">{dominantLanguages[0].name}</p>
+            <h3 className="text-lg font-semibold mb-2 text-lime-400">Lenguaje Favorito</h3>
+            <p className="text-2xl font-bold text-lime-300">{dominantLanguages[0].name}</p>
             <p className="text-xs text-gray-400 mt-1">
               {dominantLanguages[0].value}% de tus proyectos
             </p>
@@ -203,17 +191,17 @@ export default function ContenidoYear() {
         {/* Repo más popular */}
         {repoMostStars && (
           <div className="border border-white/10 rounded-lg p-4 bg-black/20">
-            <h3 className="text-lg font-semibold mb-2 text-yellow-400">⭐ Proyecto Estrella</h3>
+            <h3 className="text-lg font-semibold mb-2 text-lime-400">Proyecto Estrella</h3>
             <a 
               href={repoMostStars.html_url} 
               target="_blank" 
               rel="noopener noreferrer" 
-              className="text-yellow-300 hover:underline block truncate text-sm font-semibold"
+              className="text-lime-300 hover:underline block truncate text-sm font-semibold"
             >
               {repoMostStars.name}
             </a>
             <p className="text-xs text-gray-400 mt-1">
-              {repoMostStars.stargazers_count} ⭐ estrellas
+              {repoMostStars.stargazers_count} estrellas
             </p>
           </div>
         )}
@@ -224,7 +212,7 @@ export default function ContenidoYear() {
         
         {/* Pie chart de lenguajes */}
         <div className="border border-white/10 rounded-lg p-6 bg-black/20 flex flex-col items-center">
-          <h3 className="text-lg font-semibold mb-4">💬 Lenguajes Más Usados</h3>
+          <h3 className="text-lg font-semibold mb-4">Lenguajes Más Usados</h3>
           {dominantLanguages.length > 0 ? (
             <PieChart width={300} height={250}>
               <Pie
@@ -246,7 +234,7 @@ export default function ContenidoYear() {
 
         {/* Bar chart de meses */}
         <div className="border border-white/10 rounded-lg p-6 bg-black/20 flex flex-col items-center">
-          <h3 className="text-lg font-semibold mb-4 text-lime-400">🔥 Top 5 Meses</h3>
+          <h3 className="text-lg font-semibold mb-4 text-lime-400">Top 5 Meses</h3>
           <div className="w-full h-[250px]">
             <ResponsiveContainer width="100%" height="100%">
               <BarChart data={monthlyContributions}>
@@ -261,6 +249,18 @@ export default function ContenidoYear() {
               </BarChart>
             </ResponsiveContainer>
           </div>
+        </div>
+      </div>
+
+      {/* RESUMEN DEL AÑO SECTION - ABAJO */}
+      <div className="w-full max-w-6xl border border-white/10 rounded-lg p-6 bg-black/20">
+        <h2 className="text-2xl font-bold text-center text-lime-400 mb-4">Tu Resumen del Año</h2>
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+          {narratives.map((narrative, idx) => (
+            <div key={idx} className="p-3 bg-black/20 rounded-lg border border-white/10 hover:border-lime-400/50 transition">
+              <p className="text-sm text-gray-200">{narrative}</p>
+            </div>
+          ))}
         </div>
       </div>
 
