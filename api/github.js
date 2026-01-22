@@ -1,6 +1,7 @@
 // api/github.js
 
 import { YearDataClass } from './lib/YearDataClass.js';
+import { SkillsDataClass } from './lib/SkillsDataClass.js';
 
 /**
  * Cliente GraphQL para GitHub
@@ -63,6 +64,11 @@ const githubClient = new GitHubGraphQLClient(githubToken);
  * Instancia de YearDataClass
  */
 export const yearDataHandler = new YearDataClass(githubClient);
+
+/**
+ * Instancia de SkillsDataClass (datos de habilidades a lo largo del tiempo)
+ */
+export const skillsDataHandler = new SkillsDataClass(githubClient);
 
 // Exportar el cliente para futuras clases
 export { GitHubGraphQLClient, githubClient };

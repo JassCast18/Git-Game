@@ -4,61 +4,6 @@ import { PieChart, Pie, Cell, BarChart, Bar, XAxis, YAxis, Tooltip, ResponsiveCo
 
 const COLORS = ["#22c55e", "#38bdf8", "#a78bfa", "#facc15", "#fb7185"];
 
-// Función para generar frases narrativas tipo Spotify Wrapped
-function generateNarratives(data) {
-  const {
-    totalContributions,
-    maxConsecutiveDays,
-    weekendCommits,
-    nightPercentage,
-    chronotype,
-    peakHour,
-    dominantLanguages,
-    repoMostStars,
-    monthlyContributions,
-    user,
-    weekComparison
-  } = data;
-
-  const narratives = [];
-
-  // Narrativa 1: Tipo de programador
-  const peakHourTime = peakHour < 12 ? `${peakHour}:00 AM` : peakHour === 12 ? "12:00 PM" : `${peakHour - 12}:00 PM`;
-  narratives.push(`Eres un programador ${chronotype}: tu hora pico son las ${peakHourTime}. El ${nightPercentage}% de tu código se escribió en horas no convencionales.`);
-
-  // Narrativa 2: Racha de días
-  narratives.push(`Tu racha más larga: ${maxConsecutiveDays} días consecutivos haciendo commits. Increíble dedicación.`);
-
-  // Narrativa 3: Fines de semana
-  const weekendPercentage = totalContributions > 0 ? Math.round((weekendCommits / totalContributions) * 100) : 0;
-  narratives.push(`Dedicaste el ${weekendPercentage}% de tu tiempo de programación a los fines de semana. ${weekendPercentage > 30 ? "Definitivamente amas lo que haces." : "Buen balance trabajo-vida."}`);
-
-  // Narrativa 4: Lenguaje principal
-  if (dominantLanguages.length > 0) {
-    narratives.push(`Tu lenguaje favorito este año fue ${dominantLanguages[0].name}. Lo dominaste en el ${dominantLanguages[0].value}% de tus proyectos.`);
-  }
-
-  // Narrativa 5: Mes más productivo
-  if (monthlyContributions.length > 0) {
-    narratives.push(`Tu mes más productivo fue ${monthlyContributions[0].name}, con ${monthlyContributions[0].commits} commits. Fue un mes especial.`);
-  }
-
-  // Narrativa 6: Repo favorita
-  if (repoMostStars) {
-    narratives.push(`Tu proyecto "${repoMostStars.name}" fue un éxito total con ${repoMostStars.stargazers_count} estrellas. La comunidad te ama.`);
-  }
-
-  // Narrativa 7: Comparativa de días
-  const viernes = weekComparison[1];
-  const domingo = weekComparison[2];
-  if (viernes.commits > domingo.commits) {
-    narratives.push(`Prefieres programar en viernes (${viernes.commits} commits) que en domingo (${domingo.commits}). Escapando del trabajo.`);
-  } else {
-    narratives.push(`Eres más productivo en domingo (${domingo.commits} commits) que en viernes (${viernes.commits}).`);
-  }
-
-  return narratives;
-}
 
 export default function ContenidoYear() {
   const { player, loading } = useGame();
@@ -70,7 +15,6 @@ export default function ContenidoYear() {
   const data = player.data;
   const { user, repoMostStars, dominantLanguages, monthlyContributions, hourlyData, weekComparison, totalContributions, maxConsecutiveDays, weekendCommits, nightPercentage, chronotype, peakHour } = data;
 
-  const narratives = generateNarratives(data);
 
   // Preparar datos para el gráfico de dispersión (hora vs distribución)
   const hourlyChartData = hourlyData.map((commits, hour) => ({
@@ -252,18 +196,7 @@ export default function ContenidoYear() {
         </div>
       </div>
 
-      {/* RESUMEN DEL AÑO SECTION - ABAJO */}
-      <div className="w-full max-w-6xl border border-white/10 rounded-lg p-6 bg-black/20">
-        <h2 className="text-2xl font-bold text-center text-lime-400 mb-4">Tu Resumen del Año</h2>
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-          {narratives.map((narrative, idx) => (
-            <div key={idx} className="p-3 bg-black/20 rounded-lg border border-white/10 hover:border-lime-400/50 transition">
-              <p className="text-sm text-gray-200">{narrative}</p>
-            </div>
-          ))}
-        </div>
-      </div>
-
+      
       {/* CALENDARIO DE GITHUB (Final) */}
       <div className="w-full max-w-6xl">
         <div className="p-4 bg-black/30 rounded-lg border border-white/10 w-full overflow-auto flex justify-center">

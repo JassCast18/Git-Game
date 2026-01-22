@@ -5,7 +5,7 @@ import Arbol from "./Arbol"
 
 // Importar tus Modales (asegúrate de tener las rutas correctas)
 import ModalBase from "../../ui/ModalBase";
-import ContenidoYear from "../modals/ContenidoYear";
+import ContenidoYear from "../modals/ContenidoYEar";
 import ContenidoSkills from "../modals/ContenidoSkills";
 import ContenidoVS from "../modals/ContenidoVs";
 

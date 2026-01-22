@@ -3,7 +3,7 @@ import { useGame } from '../Context/GameContext';
 import { useNavigate } from 'react-router-dom';
 import { FaGithub } from "react-icons/fa";
 import { ImSearch } from "react-icons/im";
-import { yearDataHandler } from '../../api/github';
+import { yearDataHandler, skillsDataHandler } from '../../api/github';
 import { CgCloseR } from "react-icons/cg";
 
 
@@ -44,12 +44,13 @@ function Buscador() {
       
       // Obtener datos del usuario con GraphQL
       const yearData = await yearDataHandler.fetchYearData(username);
+      const skillsData = await skillsDataHandler.fetchSkillsData(username);
 
       // Establecer el jugador en el contexto
       setPlayer({
         username: yearData.user.login,
         avatar: yearData.user.avatar_url || '',
-        data: yearData,
+        data: { ...yearData, skills: skillsData },
       });
 
       setLoading(false);
