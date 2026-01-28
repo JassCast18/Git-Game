@@ -1,9 +1,7 @@
-// api/lib/SkillsDataClass.js
-// Maneja datos de "habilidades" usando todo el historial de repos públicos del usuario
-
+//Esta clase es para obtener datos de persona buscada en git
 export class SkillsDataClass {
   constructor(githubClient) {
-    this.githubClient = githubClient;
+    this.githubClient = githubClient; // un constructor con el que definimos la variable gitHubClient
   }
 
   async fetchSkillsData(username) {

@@ -3,9 +3,6 @@
 import { YearDataClass } from './lib/YearDataClass.js';
 import { SkillsDataClass } from './lib/SkillsDataClass.js';
 
-/**
- * Cliente GraphQL para GitHub
- */
 class GitHubGraphQLClient {
   constructor(token) {
     this.token = token;

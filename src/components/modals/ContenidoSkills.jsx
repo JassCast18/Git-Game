@@ -22,16 +22,7 @@ export default function ContenidoSkills() {
   const radarData = safeSkills.skillRadar || [];
   const topLangs = safeSkills.languageUsage || [];
 
-  const questions = useMemo(() => {
-    const q = [];
-    if (safeSkills.totalStars > 0) q.push(`¿Cómo seguir creciendo más allá de tus ${safeSkills.totalStars} estrellas?`);
-    if (safeSkills.activeRepos < (player?.data?.user?.public_repos || 0)) q.push('¿Qué repos antiguos podrías reactivar o archivar?');
-    if (safeSkills.contributions.pullRequests === 0) q.push('¿Te animas a abrir tu primer Pull Request colaborativo?');
-    if ((topLangs[0]?.value || 0) < 50) q.push('Tienes un stack balanceado, ¿quieres especializarte o seguir generalista?');
-    if (radarData.length && radarData[0].A < 60) q.push('¿Cuál skill quieres subir 10 puntos este mes?');
-    return q;
-  }, [safeSkills.totalStars, safeSkills.activeRepos, safeSkills.contributions.pullRequests, topLangs, radarData, player]);
-
+ 
   if (loading) return <p className="text-white text-center">Cargando información...</p>;
   if (!skills) return <p className="text-white text-center">No hay datos de habilidades disponibles.</p>;
 
@@ -110,19 +101,7 @@ export default function ContenidoSkills() {
         </div>
       </div>
 
-      {/* Preguntas / retos */}
-      {questions.length > 0 && (
-        <div className="border border-white/10 rounded-lg p-4 bg-black/20">
-          <h3 className="text-lg font-semibold mb-3 text-lime-400">Retos y próximos pasos</h3>
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
-            {questions.map((q, idx) => (
-              <div key={idx} className="p-3 bg-black/10 rounded border border-white/10 text-sm text-gray-200">
-                {q}
-              </div>
-            ))}
-          </div>
-        </div>
-      )}
+      
     </div>
   );
 }
