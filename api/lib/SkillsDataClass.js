@@ -4,9 +4,9 @@ export class SkillsDataClass {
     this.githubClient = githubClient; // un constructor con el que definimos la variable gitHubClient
   }
 
-  async fetchSkillsData(username) {
+  async fetchSkillsData(username) { //funcion con GraphQl que pide los datos para mostrar
     const query = `
-      query($userName:String!) {
+      query($userName:String!) { 
         user(login: $userName) {
           login
           avatarUrl
@@ -35,38 +35,37 @@ export class SkillsDataClass {
           }
         }
       }
-    `;
+    `; //todo esto es el query
 
-    const response = await this.githubClient.query(query, { userName: username });
-    if (!response || !response.user) throw new Error('Usuario no encontrado');
+    const response = await this.githubClient.query(query, { userName: username });// verifica si el query se ejecuta bien
+    if (!response || !response.user) throw new Error('Usuario no encontrado');// indica que el usuario no fue encontrado
 
-    return this.processSkillsData(response.user);
+    return this.processSkillsData(response.user); // retorna el JSON recibido y lo envia a esa funcion
   }
 
-  processSkillsData(userData) {
-    const { login, avatarUrl, followers, repositories, contributionsCollection } = userData;
-    const repos = repositories?.nodes || [];
-
+  processSkillsData(userData) { // Funcion que recibe el JSON
+    const { login, avatarUrl, followers, repositories, contributionsCollection } = userData; //guarda el data en distintas variables, dividiendo el JSON
+    const repos = repositories?.nodes || []; 
     // Acumular uso de lenguajes por tamaño (si hay datos) o por conteo de repos
-    const langTotals = {};
-    repos.forEach(repo => {
-      const edges = repo.languages?.edges || [];
-      if (edges.length) {
-        edges.forEach(({ size, node }) => {
+    const langTotals = {}; 
+    repos.forEach(repo => { 
+      const edges = repo.languages?.edges || []; 
+      if (edges.length) { 
+        edges.forEach(({ size, node }) => { 
           if (!node?.name) return;
-          langTotals[node.name] = (langTotals[node.name] || 0) + (size || 0);
+          langTotals[node.name] = (langTotals[node.name] || 0) + (size || 0); 
         });
       } else if (repo.primaryLanguage?.name) {
         // fallback si no hay tamaños
-        langTotals[repo.primaryLanguage.name] = (langTotals[repo.primaryLanguage.name] || 0) + 1;
+        langTotals[repo.primaryLanguage.name] = (langTotals[repo.primaryLanguage.name] || 0) + 1; //le agrega 1 al conteo del lenguaje principal
       }
     });
 
-    const totalLangSize = Object.values(langTotals).reduce((a, b) => a + b, 0) || 1;
+    const totalLangSize = Object.values(langTotals).reduce((a, b) => a + b, 0) || 1; // une valores totales
     const languageUsage = Object.entries(langTotals)
-      .map(([name, value]) => ({ name, value: Math.round((value / totalLangSize) * 100) }))
-      .sort((a, b) => b.value - a.value)
-      .slice(0, 6);
+      .map(([name, value]) => ({ name, value: Math.round((value / totalLangSize) * 100) }))//porcentua
+      .sort((a, b) => b.value - a.value)//ordena de mayor a menbor
+      .slice(0, 6);//6 lenguajes mas usados
 
     const skillRadar = this.buildSkillRadar(langTotals);
 
@@ -100,7 +99,7 @@ export class SkillsDataClass {
       reposCreated: contributionsCollection?.totalRepositoryContributions || 0,
     };
 
-    return {
+    return { //Retorno completo de la informacion en variables
       user: {
         login,
         avatar_url: avatarUrl,
@@ -126,7 +125,7 @@ export class SkillsDataClass {
       DevOps: ['Dockerfile', 'Shell', 'Bash', 'PowerShell', 'HCL', 'YAML'],
       Mobile: ['Swift', 'Objective-C', 'Kotlin', 'Java', 'Dart'],
       Game: ['C++', 'C#', 'Rust'],
-    };
+    };// se pueden agregar mas clusters si se desea
 
     const clusterTotals = {};
     Object.entries(langTotals).forEach(([lang, value]) => {
@@ -135,11 +134,11 @@ export class SkillsDataClass {
           clusterTotals[cluster] = (clusterTotals[cluster] || 0) + value;
         }
       });
-    });
+    });// suma los valores de cada cluster
 
     const sum = Object.values(clusterTotals).reduce((a, b) => a + b, 0) || 1;
     return Object.entries(clusterTotals)
       .map(([name, value]) => ({ subject: name, A: Math.round((value / sum) * 100), fullMark: 100 }))
-      .sort((a, b) => b.A - a.A);
+      .sort((a, b) => b.A - a.A); //retorna el arreglo ordenado y en porcentaje
   }
 }
